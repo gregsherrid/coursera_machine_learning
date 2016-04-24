@@ -7,12 +7,10 @@ function g = sigmoid(z)
 %               vector or scalar).
 
 	% g = sigmoidHelper(z);
-	g = arrayfun(@sigmoidHelper, z);
-
+	g = arrayfun(@sigmoid_helper, z);
 % =============================================================
-
 end
 
-function gInt = sigmoidHelper(zInt)
-	gInt = 1 / (1 + e .^ (-zInt));
+function g_int = sigmoid_helper(z_int)
+	g_int = 1 / (1 + e .^ (-z_int));
 end
