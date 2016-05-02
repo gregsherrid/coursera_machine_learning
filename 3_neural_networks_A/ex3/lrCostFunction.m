@@ -37,6 +37,7 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+%%%%%% Partially vectorized....
 % for i = 1:m,
 % 	x = X(i, :) * theta;
 % 	sig = sigmoid(x);
@@ -44,15 +45,22 @@ grad = zeros(size(theta));
 % 	grad += (sig - y(i)) * X(i, :)';
 % end
 
-SigXT = sigmoid(X .* theta);
-J = -1 * y * log(SigXT) - (1 - y) * log(1 - SigXT);
-grad = (SigXT - y) * X;
+% J /= m;
+% grad /= m;
+%%%%%% End Partially vectorized....
 
-J /= m;
+%%%%%% Fully vectorized....
+SigXT = sigmoid(X * theta);
+J = -1 * y .* log(SigXT) - (1 - y) .* log(1 - SigXT);
+grad = X' * (SigXT - y);
+
+J = sum(J) / m;
 grad /= m;
+%%%%%% End fully vectorized....
+
 
 % Skip first term
-squared_thetas = theta(2:n) .^ 2;
+squared_thetas = theta(2:end) .^ 2;
 reg_cost = sum(squared_thetas) * lambda / (2 * m);
 
 reg_grad = theta * lambda / m;
