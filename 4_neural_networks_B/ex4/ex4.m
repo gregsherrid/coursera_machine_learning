@@ -73,8 +73,7 @@ fprintf('\nFeedforward Using Neural Network ...\n')
 % Weight regularization parameter (we set this to 0 here).
 lambda = 0;
 
-J = nnCostFunction(nn_params, input_layer_size, hidden_layer_size, ...
-                   num_labels, X, y, lambda);
+J = nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, lambda);
 
 fprintf(['Cost at parameters (loaded from ex4weights): %f '...
          '\n(this value should be about 0.287629)\n'], J);
@@ -161,8 +160,7 @@ lambda = 3;
 checkNNGradients(lambda);
 
 % Also output the costFunction debugging values
-debug_J  = nnCostFunction(nn_params, input_layer_size, ...
-                          hidden_layer_size, num_labels, X, y, lambda);
+debug_J  = nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, lambda);
 
 fprintf(['\n\nCost at (fixed) debugging parameters (w/ lambda = 10): %f ' ...
          '\n(this value should be about 0.576051)\n\n'], debug_J);
@@ -188,10 +186,7 @@ options = optimset('MaxIter', 50);
 lambda = 1;
 
 % Create "short hand" for the cost function to be minimized
-costFunction = @(p) nnCostFunction(p, ...
-                                   input_layer_size, ...
-                                   hidden_layer_size, ...
-                                   num_labels, X, y, lambda);
+costFunction = @(p) nnCostFunction(p, input_layer_size, hidden_layer_size, num_labels, X, y, lambda);
 
 % Now, costFunction is a function that takes in only one argument (the
 % neural network parameters)
