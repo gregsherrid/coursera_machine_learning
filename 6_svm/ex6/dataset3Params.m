@@ -24,10 +24,37 @@ sigma = 0.3;
 %
 
 
+%{
+parameter_range = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
 
+best_C = 0;
+best_sigma = 0;
+best_error = Inf;
 
+for C = parameter_range
+	for sigma = parameter_range
+		model = svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
+		predictions = svmPredict(model, Xval);
+		val_error = mean(double(predictions ~= yval));
 
+		fprintf('C: %f, also sigma: %f, error: %f\n', C, sigma, val_error);
 
+		if (val_error < best_error)
+			fprintf('------ BEST --------');
+			best_C = C;
+			best_sigma = sigma;
+			best_error = val_error;
+		end
+	end
+end
+
+C = best_C;
+sigma = best_sigma;
+
+%}
+
+C = 0.3;
+sigma = 0.1;
 
 % =========================================================================
 
